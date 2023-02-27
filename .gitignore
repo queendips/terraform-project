@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+    tools {
+  terraform 'terraform'
+}
+stages () {
+    stage('git checkout') {
+        steps {
+            git branch: 'main', credentialsId: 'fb4321ae-def3-475b-9e35-55c9338aaf6e', url: 'https://github.com/queendips/terraform-project.git'
+        }
+    }
+    stage('Terraform Initialize') {
+        steps {
+            sh 'terraform init'
+        }
+    }
+    stage('Terraform plan') {
+        steps {
+            sh 'terraform plan'
+        }
+    }
+    stage('terraform provisioning') {
+        steps {
+            sh 'terraform apply --auto-approve'
+        }
+    }
+}
+
+    
+    
+    
+    
+}
